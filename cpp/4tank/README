@@ -1,0 +1,65 @@
+Project: Villanova Resilient Control System (vcs)
+Package: Networked Four Tank System
+By: Brian Kim
+Date: 7/13/2014
+
+Description: a simulation of the coupled 4 tank system
+- here is an ASCII-art representation of the system
+
+   |---------------vv 
+   |    vv---------------|
+   | |------|   |------| |   vv = spouts where water can fall
+   | |  tl  |   |  tr  | |   oo = an adjustable valve [0.0, 1.0]
+   | | tank |   | tank | |   <==> = a pump that ejects water at 
+   | |  (1) |   |  (3) | |          a certain velocity
+   | |--oo--|   |--oo--| |
+   |    vv         vv    |
+   oo-vv             vv-oo
+   | |------|   |------| |
+   | |  bl  |   |  br  | |
+   | | tank |   | tank | |
+   | |  (2) |   |  (4) | |
+   | |--oo--|   |--oo--| |
+   |    vv         vv    |
+   |                     |
+ <===> |             | <===>
+   |---|  reservoir  |
+       |-------------|
+
+Definitions:
+- tank:
+  - defined by its radius and height
+  - holds information about its drain hole (radius/height/valve)
+
+- pump:
+  - defined by its pipe radius, velocity, and valve ratio
+  - valve ratio defines the percentage of water that will be
+    diverted into the upper tanks 
+
+- coupled :
+  - water from the left pump flows into bl and tr tanks
+  - water from the right pump flows into br and tl tanks
+
+
+Getting Started:
+- currently this simulation only runs under the OMNeT++
+  runtime
+- you will need to install OMNeT++ and set up your 
+  PATH variable appropriately
+- then you should invoke:
+  opp_makemake -I../include -L../lib -lTank -f
+  make
+  ./omnet
+- since a mechanism for sending messages during runtime has 
+  not yet been realized, all the command messages must be
+  define at compile-time.
+  - edit the initialize() method in omnet/OMNeTTankMaster.cc
+    with the messages you would like to send to the tank system
+    and when you would want to send the message
+    - the methods you should use are:
+    setTopLeftTankValve(),    setTopRightTankValve(),
+    setBottomLeftTankValve(), setBottomRightTankValve(),
+    setLeftPumpValveRatio(),  setRightPumpValveRatio(),
+    setLeftPumpVelocity(),    setRightPumpVelocity()
+      - first arg: value, second arg: time
+      

@@ -1,0 +1,1 @@
+-g -Wall   -fno-stack-protector  -DHAVE_PCAP -DXMLPARSER=libxml -DWITH_PARSIM -DWITH_NETBUILDER  -I../include -I. -I/Users/bkim11/Dropbox/home/proj/vcs/shared/omnetpp-4.4.1/include
