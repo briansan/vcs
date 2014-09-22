@@ -49,7 +49,7 @@ class PumpInfoTable():
     self.right_label = gtk.Label( 'right' )
 
     # create headers
-    self.velocity_label = gtk.Label( 'power (+/- 1.414 cm3/s)' )
+    self.velocity_label = gtk.Label( 'velocity (cm/s)' )
     self.valve_ratio_label = gtk.Label( 'valve ratio left=(tr/bl) right=(tl/br)' )
 
     # create the table info cells
