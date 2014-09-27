@@ -15,10 +15,10 @@ class TankSystem():
   class PumpIndex():
     left, right = range(2)
 
-  def __init__( self, upper_tank_radius, lower_tank_radius, tank_height=5,
+  def __init__( self, upper_tank_radius=3, lower_tank_radius=5, tank_height=5,
                       drain_radius=1, drain_height=2,
-                      tank_valve_ratio=0.5, init_water_height=0.15,
-                      pump_pipe_radius=3, pump_velocity=0.1, pump_valve_ratio=0.5, clock=0 ):
+                      tank_valve_ratio=0.5, init_water_height=1.0,
+                      pump_pipe_radius=3, pump_velocity=0.2, pump_valve_ratio=0.5, clock=0 ):
 
     self._clk = clock
     self._tl = TankController( upper_tank_radius, tank_height, drain_radius, drain_height, 
@@ -107,3 +107,16 @@ class TankSystem():
     # increment the clock
     self._clk = self.clock() + 1
 
+if __name__ == '__main__':
+  tank = TankSystem()
+  pump = tank.pump(TankSystem.PumpIndex.left)
+  bl = tank.tank(TankSystem.TankIndex.bl)
+  tr = tank.tank(TankSystem.TankIndex.tr)
+  print 'ratio bl.water_in bl.water_out tr.water_in tr.water_out'
+
+  for i in range(100):
+    ratio = float(i)/100
+    pump.valve_ratio(ratio)
+    tank.step()
+    s = str(ratio) + ' ' + str(bl.water_in()) + ' ' + str(bl.water_out()) + ' ' + str(tr.water_in()) + ' ' + str(tr.water_out())
+    print s

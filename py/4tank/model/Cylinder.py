@@ -7,6 +7,9 @@
 from math import pi
 
 class Cylinder(object):
+  #
+  # accessor methods 
+  # 
   def area( self ):
     return self._area
 
@@ -25,6 +28,12 @@ class Cylinder(object):
   def volume( self ):
     return self._volume
 
+  #
+  # constructor
+  # 
+  # note: these properties are computed at
+  #       init time. that makes this class immutable
+  #
   def __init__( self, radius=3, height=4 ):
     # 1d properties
     self._height = height

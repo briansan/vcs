@@ -130,18 +130,16 @@ class TankController():
     # only update water out if there is water
     if self.water_volume():
       # set water out
-      self._water_out = drain_volume * self._drain.valve()
+      drain_amt = drain_volume * self._drain.valve()
+      self._water_out = drain_amt if drain_amt < self.water_volume() else self.water_volume()
 
+      # lessen the water volume
       self._water_volume = self.water_volume() - self.water_out() 
       if self._water_volume < 0:
         self._water_volume = 0
 
-      drain_amt = self.water_out() if self.water_volume() < self.drain_volume() else 0
-      self._drain_water_volume = self._drain_water_volume - drain_amt
-
       # make sure valves aren't < 0
       self._water_volume = self.water_volume() if self.water_volume() else 0
-      self._drain_water_volume = self.drain_water_volume() if self.drain_water_volume() else 0
 
     # check for the tank overflowing
     if t_water_volume > self.capacity():
